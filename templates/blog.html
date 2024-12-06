@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *Must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title -->
+    <title>Clever - Education &amp; Courses Template | Blog</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="img/core-img/favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+
+</head>
+
+<body>
+
+<!-- ##### Header Area Start ##### -->
+<header class="header-area">
+
+    <!-- Top Header Area -->
+    <div class="top-header-area d-flex justify-content-between align-items-center">
+        <!-- Contact Info -->
+        <div class="contact-info">
+            <a href="blog.html#"><span>Phone:</span> +44 300 303 0266</a>
+            <a href="blog.html#"><span>Email:</span> <span class="__cf_email__"
+                                                           data-cfemail="650c0b030a250609001300174b060a08">[email&#160;protected]</span></a>
+        </div>
+    </div>
+
+    <!-- Navbar Area -->
+    <div class="clever-main-menu">
+        <div class="classy-nav-container breakpoint-off">
+            <!-- Menu -->
+            <nav class="classy-navbar justify-content-between" id="cleverNav">
+
+                <!-- Logo -->
+                <a class="nav-brand" href="index.html"><img src="{% static 'img/core-img/logo.png' %}" alt=""></a>
+
+                <!-- Navbar Toggler -->
+                <div class="classy-navbar-toggler">
+                    <span class="navbarToggler"><span></span><span></span><span></span></span>
+                </div>
+
+                <!-- Menu -->
+                <div class="classy-menu">
+
+                    <!-- Close Button -->
+                    <div class="classycloseIcon">
+                        <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                    </div>
+
+                    <!-- Nav Start -->
+                    <div class="classynav">
+                        <ul>
+                            <li><a href="{% url 'main' %}">Home</a></li>
+                            <li><a href="{% url 'url_course' %}">Courses</a></li>
+                            <li><a href="{% url 'instructors' %}">Instructors</a></li>
+                            <li><a href="{% url 'blog' %}">Blog</a></li>
+                            <li><a href="{% url 'contact' %}">Contact</a></li>
+                        </ul>
+
+                        <!-- Search Button -->
+                        <div class="search-area">
+                            <form action="{% url 'search' %}" class="search-form">
+                                <input name="search" type="search" class="form-control" placeholder="Search...">
+                            </form>
+                        </div>
+
+                        <!-- Register / Login -->
+                        <div class="register-login-area">
+                            <a href="{% url 'register' %}" class="btn">Register</a>
+                            <a href="index-login.html" class="btn active">Login</a>
+                        </div>
+
+                    </div>
+                    <!-- Nav End -->
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+<!-- ##### Header Area End ##### -->
+
+<!-- ##### Blog Area Start ##### -->
+<section class="blog-area blog-page section-padding-100">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="blog-catagories mb-70 d-flex flex-wrap justify-content-between">
+
+                    <!-- Single Catagories -->
+                    {% for category in every_category %}
+                    <div class="single-catagories bg-img"
+                         style="background-image: url({% static 'img/bg-img/bc1.jpg' %});">
+                        <a href="{% url 'blog' %}?category={{category.title}}">
+                            <h6>{{category.title}}</h6>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            {% if all_blog %}
+            {% for blog in all_blog %}
+            <div class="col-12 col-lg-6">
+                <div class="single-blog-area mb-100 wow fadeInUp" data-wow-delay="250ms">
+                    <img src="{{blog.image.url}}" alt="">
+                    <!-- Blog Content -->
+                    <div class="blog-content">
+                        <a href="{% url 'single_blog' blog.id %}"><h4>{{blog.title}}</h4></a>
+                        <div class="meta d-flex align-items-center">
+                            <a href="">{{blog.author_name}}</a>
+                            <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                            <a href="">{{blog.category}}</a>
+                        </div>
+                        <p>{{blog.description}}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            {% for blog in every_blog %}
+            <div class="col-12 col-lg-6">
+                <div class="single-blog-area mb-100 wow fadeInUp" data-wow-delay="250ms">
+                    <img src="{{blog.image.url}}" alt="">
+                    <!-- Blog Content -->
+                    <div class="blog-content">
+                        <a href="{% url 'single_blog' blog.id %}"><h4>{{blog.title}}</h4></a>
+                        <div class="meta d-flex align-items-center">
+                            <a href="">{{blog.author_name}}</a>
+                            <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                            <a href="">{{blog.category}}</a>
+                        </div>
+                        <p>{{blog.description}}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+
+        <div class="row">
+            {% if all_blog.has_previous %}
+            <a href="?page={{all_blog.previous_page_number}}&category={{category_title}}"
+               style="margin-left: 600px;;background-color: gold; width: 40px; height: 40px; border-radius: 50px; text-align: center; padding-top:10px"><</a>
+            {% endif %}
+            {% if not all_blog.has_previous%}
+            <a href=""
+               style="margin-left:640px ; background-color: gold; width: 40px; height: 40px; border-radius: 50px; text-align: center; padding-top:10px">{{page}}</a>
+            {% else %}
+            <a href=""
+               style="margin-left:5px ; background-color: gold; width: 40px; height: 40px; border-radius: 50px; text-align: center; padding-top:10px">{{page}}</a>
+            {% endif %}
+
+            {% if all_blog.has_next %}
+            <a href="?page={{all_blog.next_page_number}}&category={{category_title}}"
+               style="margin-left: 5px;background-color: gold; width: 40px; height: 40px; border-radius: 50px; text-align: center; padding-top:10px">></a>
+            {% endif %}
+        </div>
+    </div>
+</section>
+<!-- ##### Blog Area End ##### -->
+
+<!-- ##### Footer Area Start ##### -->
+<footer class="footer-area">
+    <!-- Top Footer Area -->
+    <div class="top-footer-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <!-- Footer Logo -->
+                    <div class="footer-logo">
+                        <a href="index.html"><img src="img/core-img/logo2.png" alt=""></a>
+                    </div>
+                    <!-- Copywrite -->
+                    <p><a href="blog.html#">
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        Copyright &copy;<script data-cfasync="false"
+                                                src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+                        <script>document.write(new Date().getFullYear());</script>
+                        All rights reserved | This template is made with <i class="fa fa-heart-o"
+                                                                            aria-hidden="true"></i> by <a
+                            href="https://colorlib.com" target="_blank">Colorlib</a>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Footer Area -->
+    <div class="bottom-footer-area d-flex justify-content-between align-items-center">
+        <!-- Contact Info -->
+        <div class="contact-info">
+            <a href="blog.html#"><span>Phone:</span> +44 300 303 0266</a>
+            <a href="blog.html#"><span>Email:</span> <span class="__cf_email__"
+                                                           data-cfemail="fe97909891be9d929b889b8cd09d9193">[email&#160;protected]</span></a>
+        </div>
+        <!-- Follow Us -->
+        <div class="follow-us">
+            <span>Follow us</span>
+            <a href="blog.html#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+            <a href="blog.html#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+            <a href="blog.html#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+        </div>
+    </div>
+</footer>
+<!-- ##### Footer Area End ##### -->
+
+<!-- ##### All Javascript Script ##### -->
+<!-- jQuery-2.2.4 js -->
+<script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<script src="{% static 'js/jquery/jquery-2.2.4.min.js' %}"></script>
+<!-- Popper js -->
+<script src="{% static 'js/bootstrap/popper.min.js' %}"></script>
+<!-- Bootstrap js -->
+<script src="{% static 'js/bootstrap/bootstrap.min.js' %}"></script>
+<!-- All Plugins js -->
+<script src="{% static 'js/plugins/plugins.js' %}"></script>
+<!-- Active js -->
+<script src="{% static 'js/active.js' %}"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-23581568-13');
+</script>
+
+
+</body>
+
+</html>
